@@ -85,6 +85,18 @@ Which retrieves records:
 This ensures that only necessary data is retrieved from the database.
 
 ---
+## Screenshots
+
+### Categories Page
+![Categories Page](screenshots/category.png)
+
+### Products Page
+![Products Page](screenshots/product.png)
+
+### Server-Side Pagination
+![Pagination](screenshots/pagination.png)
+
+---
 
 # Project Structure
 
