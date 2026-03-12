@@ -204,7 +204,7 @@ DB_NAME=nimap_infotech_test
 ### 4 Start the Server
 
 ```
-node server.js
+npm run dev
 ```
 
 ---
