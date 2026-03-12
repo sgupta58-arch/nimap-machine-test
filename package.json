@@ -1,0 +1,20 @@
+{
+  "name": "nimap_infotech_machine_test",
+  "version": "1.0.0",
+  "description": "nimpa infotech machine test",
+  "license": "ISC",
+  "author": "swayam gupta",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "dev": "npx nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "mysql2": "^3.19.1"
+  }
+}
