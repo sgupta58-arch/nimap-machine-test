@@ -1,10 +1,12 @@
 const db = require("../db");
+///--Get--///
 
 exports.getProducts = (req, res) => {
 
   const page = parseInt(req.query.page) || 1;
   const pageSize = 10;
 
+///--- calculate pagination offset
   const offset = (page - 1) * pageSize;
 
   const productQuery = `
@@ -57,6 +59,8 @@ exports.getProducts = (req, res) => {
   });
 
 };
+///---Add Products----HTTP(POST)///
+
 exports.addProduct = (req, res) => {
 
   const { productName, categoryId } = req.body;
@@ -77,6 +81,35 @@ exports.addProduct = (req, res) => {
   );
 
 };
+
+///---UPdate product---HTTP(PUT)---//
+
+exports.updateProduct = (req, res) => {
+
+  const id = req.params.id;
+  const { productName, categoryId } = req.body;
+
+  const query = `
+    UPDATE products
+    SET productName = ?, categoryId = ?
+    WHERE productId = ?
+  `;
+
+  db.query(query, [productName, categoryId, id], (err) => {
+
+    if (err) {
+      console.error(err);
+      return res.send("Database error");
+    }
+
+    res.redirect("/products");
+
+  });
+
+};
+
+
+// Delete product----HTTP(DELETE)
 
 exports.deleteProduct = (req, res) => {
 

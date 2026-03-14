@@ -1,5 +1,8 @@
 const db = require("../db");
 
+// ---ADD category---HTTP(GET)
+
+
 exports.getCategories = (req, res) => {
 
   db.query("SELECT * FROM categories", (err, categories) => {
@@ -14,6 +17,9 @@ exports.getCategories = (req, res) => {
   });
 
 };
+
+// ---ADD category---HTTP(ADD)
+
 
 exports.addCategory = (req, res) => {
 
@@ -35,6 +41,33 @@ exports.addCategory = (req, res) => {
 
 };
 
+// ---UPDATE category---HTTP(UPDATE)
+exports.updateCategory = (req, res) => {
+
+  const id = req.params.id;
+  const { categoryName } = req.body;
+
+  const query = `
+    UPDATE categories
+    SET categoryName = ?
+    WHERE categoryId = ?
+  `;
+
+  db.query(query, [categoryName, id], (err) => {
+
+    if (err) {
+      console.error(err);
+      return res.send("Database error");
+    }
+
+    res.redirect("/categories");
+
+  });
+
+};
+
+
+// ---DELETE category---HTTP(DELETE)
 exports.deleteCategory = (req, res) => {
 
   const id = req.params.id;

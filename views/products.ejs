@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Product Master</title>
-<!-- <link rel="stylesheet" href="/styles.css"> -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Product Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="container mt-5">
 
-<h2>Product Master</h2>
+<h2 class="mb-4">Product Management</h2>
+<div class="d-flex gap-2 mb-4">
 
-<form action="/products/add" method="POST">
+<a href="/products" class="btn btn-outline-primary">
+Products
+</a>
 
-<input type="text" name="productName" placeholder="Product Name" required>
+<a href="/categories" class="btn btn-outline-secondary">
+Categories
+</a>
 
-<select name="categoryId">
+</div>
+
+
+<!-- Add Product Form -->
+<form action="/products" method="POST" class="row g-2 mb-4">
+
+<div class="col-md-4">
+<input type="text" name="productName" class="form-control" placeholder="Product Name" required>
+</div>
+
+<div class="col-md-4">
+<select name="categoryId" class="form-select" required>
 
 <% categories.forEach(cat => { %>
 
@@ -25,20 +40,28 @@
 <% }) %>
 
 </select>
+</div>
 
-<button type="submit">Add Product</button>
+<div class="col-md-2">
+<button class="btn btn-primary">Add Product</button>
+</div>
 
 </form>
 
-<table>
+<!-- Product Table -->
+<table class="table table-bordered table-striped">
 
+<thead class="table-dark">
 <tr>
-<th>ProductId</th>
-<th>ProductName</th>
-<th>CategoryId</th>
-<th>CategoryName</th>
-<th>Delete</th>
+<th>ID</th>
+<th>Product Name</th>
+<th>Category ID</th>
+<th>Category Name</th>
+<th>Actions</th>
 </tr>
+</thead>
+
+<tbody>
 
 <% products.forEach(product => { %>
 
@@ -50,36 +73,58 @@
 <td><%= product.categoryName %></td>
 
 <td>
-<a href="/products/delete/<%= product.productId %>">Delete</a>
+
+<!-- Edit Form -->
+<form action="/products/<%= product.productId %>?_method=PUT" method="POST" class="d-inline">
+
+<input type="text" name="productName" value="<%= product.productName %>" class="form-control mb-1">
+
+<select name="categoryId" class="form-select mb-1">
+
+<% categories.forEach(cat => { %>
+
+<option value="<%= cat.categoryId %>" <%= cat.categoryId === product.categoryId ? 'selected' : '' %>>
+<%= cat.categoryName %>
+</option>
+
+<% }) %>
+
+</select>
+
+<button class="btn btn-warning btn-sm">Update</button>
+
+</form>
+
+<!-- Delete -->
+<form action="/products/<%= product.productId %>?_method=DELETE" method="POST" class="d-inline">
+
+<button class="btn btn-danger btn-sm">
+Delete
+</button>
+
+</form>
+
 </td>
 
 </tr>
 
 <% }) %>
 
+</tbody>
+
 </table>
 
-<br>
-
-<a href="/products?page=<%= page - 1 %>">Prev</a>
-|
-<a href="/products?page=<%= page + 1 %>">Next</a>
-
-<br><br>
-
-<a href="/categories">Manage Categories</a>
-
-
-<div>
+<!-- Pagination -->
+<div class="mt-3">
 
 <% if(page > 1){ %>
-<a href="/products?page=<%= page - 1 %>">Prev</a>
+<a href="/products?page=<%= page - 1 %>" class="btn btn-secondary">Prev</a>
 <% } %>
 
-<span> Page <%= page %> of <%= totalPages %> </span>
+<span class="mx-2">Page <%= page %> of <%= totalPages %></span>
 
 <% if(page < totalPages){ %>
-<a href="/products?page=<%= page + 1 %>">Next</a>
+<a href="/products?page=<%= page + 1 %>" class="btn btn-secondary">Next</a>
 <% } %>
 
 </div>

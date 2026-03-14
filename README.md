@@ -90,6 +90,7 @@ This ensures that only necessary data is retrieved from the database.
 ### Categories Page
 ![Categories Page](screenshots/category.png)
 
+
 ### Products Page
 ![Products Page](screenshots/product.png)
 
