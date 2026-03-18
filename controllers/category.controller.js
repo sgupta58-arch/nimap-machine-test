@@ -1,6 +1,6 @@
 const db = require("../db");
 
-// ---ADD category---HTTP(GET)
+// ---get category---HTTP(GET)
 
 
 exports.getCategories = (req, res) => {
